@@ -5,7 +5,6 @@ const cors = require('cors'); // Import CORS
 
 const app = express();
 const PORT = 3000;
-
 const path = require('path');
 
 // Enable CORS for all routes
@@ -34,7 +33,7 @@ db.connect((err) => {
   }
 });
 
-// Handle login request
+// Handle login request (without bcrypt)
 app.post('/login', (req, res) => {
   const { email, password } = req.body;
 
@@ -46,7 +45,9 @@ app.post('/login', (req, res) => {
 
     if (results.length > 0) {
       // Successful login, respond with success
-      res.json({});
+      res.json({
+        user_id: results[0].user_id,   // Send the user_id back
+      });
     } else {
       // Failed login, send error message
       res.json({ message: 'Email atau password salah.' });
@@ -54,38 +55,88 @@ app.post('/login', (req, res) => {
   });
 });
 
-// Handle signup request
+// Handle signup request (no hashing)
 app.post('/signup', (req, res) => {
-    const { username, email, password } = req.body;
+  const { username, email, password } = req.body;
 
-    // Check if all required fields are provided
-    if (!username || !email || !password) {
-        return res.status(400).json({ message: 'Username, email, and password are required.' });
+  if (!username || !email || !password) {
+    return res.status(400).json({ message: 'Username, email, and password are required.' });
+  }
+
+  const checkQuery = 'SELECT * FROM `user` WHERE email = ?';
+  db.query(checkQuery, [email], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
     }
 
-    // Check if email already exists
-    const checkQuery = 'SELECT * FROM `user` WHERE email = ?';
-    db.query(checkQuery, [email], (err, results) => {
-        if (err) {
-            return res.status(500).json({ error: err.message });
-        }
+    if (results.length > 0) {
+      return res.json({ message: 'Email sudah terdaftar.' });
+    }
 
-        if (results.length > 0) {
-            // If email exists, send an error message
-            return res.json({ message: 'Email sudah terdaftar.' });
-        }
+    const insertQuery = 'INSERT INTO `user` (username, email, password) VALUES (?, ?, ?)';
+    db.query(insertQuery, [username, email, password], (err, results) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
 
-        // Insert new user into the database (using only username, email, and password)
-        const insertQuery = 'INSERT INTO `user` (username, email, password) VALUES (?, ?, ?)';
-        db.query(insertQuery, [username, email, password], (err, results) => {
-            if (err) {
-                return res.status(500).json({ error: err.message });
-            }
-
-            // Successful signup
-            res.json({ success: true });
-        });
+      res.json({ success: true });
     });
+  });
+});
+
+// Retrieve user data by user_id
+app.get('/getUserData/:user_id', (req, res) => {
+  const userId = req.params.user_id;
+
+  const query = 'SELECT * FROM `user` WHERE user_id = ?';
+  db.query(query, [userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    if (results.length > 0) {
+      const user = results[0];
+      res.json({
+        name: user.username,
+        email: user.email,
+        birthdate: user.birthdate,
+        phone: user.phone_number,
+        sex: user.sex,
+      });
+    } else {
+      res.status(404).json({ message: 'User not found' });
+    }
+  });
+});
+
+// Update user data
+app.put('/updateUserData', (req, res) => {
+  const { user_id, name, email, birthdate, phone, sex } = req.body;
+
+  if (!user_id) {
+      return res.status(400).json({ message: 'User ID is required.' });
+  }
+
+  const query = `
+      UPDATE user 
+      SET 
+          username = COALESCE(?, username), 
+          email = COALESCE(?, email), 
+          birthdate = COALESCE(?, birthdate), 
+          phone_number = COALESCE(?, phone_number), 
+          sex = COALESCE(?, sex) 
+      WHERE user_id = ?`;
+
+  db.query(
+      query,
+      [name, email, birthdate, phone, sex, user_id],
+      (err, result) => {
+          if (err) {
+              return res.status(500).json({ error: err.message });
+          }
+          res.json({ success: true, message: 'Profile updated successfully.' });
+      }
+  );
 });
 
 
