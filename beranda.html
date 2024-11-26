@@ -41,7 +41,7 @@
     <div class="hero-section">
         <h2>Perbaikan Smartphone Mudah dan Terpercaya</h2>
         <p>Konsultasikan masalah smartphone Anda dengan teknisi profesional kami</p>
-        <a href="#konsultasi" class="cta-button">Konsultasi Gratis</a>
+        <a href="#konsultasi" class="cta-button" onclick="navigateToAIchat()">Konsultasi Gratis</a>
     </div>
 
     <div class="container">
@@ -138,13 +138,17 @@
             console.log('No user_id found');
         }
 
-        function toggleMenu() {
+        function toggleMenu() { // Untuk menampilkan sidebar dari kelas hamburger menu
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('show');  // Use a class toggle for better visibility handling
         }
 
-        function navigateToProfile() {
-            window.location.href = 'profile.html';  // Corrected to use = 
+        function navigateToProfile() { // Menuju halaman Profil pengguna yang login
+            window.location.href = 'profile.html';  
+        }
+
+        function navigateToAIchat() { // Menuju halaman chat AI
+            window.location.href = 'AIchat.html';
         }
     </script>
 </body>
