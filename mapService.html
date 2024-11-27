@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyService Login</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Tambahkan gaya untuk peta */
+        #map {
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MyService</h1>
+        <p>Solusi Terpercaya untuk Perbaikan Smartphone Anda</p>
+        <div class="hamburger-menu" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>        
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="profile-picture"></div>
+            <p id="userName">namehere</p>
+            <small id="userEmail">emailhere</small>
+        </div>
+        <ul class="sidebar-menu">
+            <li><button onclick="navigateToProfile()">My Profile</button></li>
+            <li><button>History</button></li>
+            <li><button>Contact Us</button></li>
+        </ul>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="beranda.html">Beranda</a></li>
+            <li><a href="layanan.html">Layanan</a></li>
+            <li><a href="panduan.html">Panduan</a></li>
+        </ul>
+    </nav>
+
+    <!-- Tambahkan elemen untuk peta -->
+    <div id="map"></div>
+
+    <footer>
+        <p>© 2024 MyService - Spesialis Perbaikan Smartphone</p>
+        <p>Alamat: Pesona Bali Residence, Bl. B12 No.17, Bojongsoang, Bandung Regency, West Java 40288</p>
+        <p>Telepon: 0812-2512-2418 | Email: ganesha.irza@gmail.com</p>
+    </footer>
+
+    <script>
+        const userId = localStorage.getItem('user_id');
+
+        if (userId) {   
+            fetch(`http://localhost:3000/getUserData/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.name && data.email) {
+                    document.querySelector('#userName').textContent = data.name;
+                    document.querySelector('#userEmail').textContent = data.email;
+                } else {
+                    console.log('User data not available');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+        } else {
+            console.log('No user_id found');
+        }
+
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function navigateToProfile() {
+            window.location.href = 'profile.html';
+        }
+
+        // Fungsi untuk inisialisasi Google Maps
+        function initMap() {
+            // Cek lokasi pengguna menggunakan Geolocation API
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        const userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+
+                        // Buat peta di lokasi pengguna
+                        const map = new google.maps.Map(document.getElementById("map"), {
+                            center: userLocation,
+                            zoom: 15
+                        });
+
+                        // Tambahkan marker untuk lokasi pengguna
+                        new google.maps.Marker({
+                            position: userLocation,
+                            map: map,
+                            title: "Lokasi Anda"
+                        });
+
+                        // Cari lokasi service HP di sekitar
+                        const service = new google.maps.places.PlacesService(map);
+                        service.nearbySearch(
+                            {
+                                location: userLocation,
+                                radius: 5000, // Radius pencarian dalam meter
+                                keyword: "service hp" // Kata kunci pencarian
+                            },
+                            (results, status) => {
+                                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                                    results.forEach(place => {
+                                        // Tambahkan marker untuk setiap lokasi yang ditemukan
+                                        new google.maps.Marker({
+                                            position: place.geometry.location,
+                                            map: map,
+                                            title: place.name
+                                        });
+                                    });
+                                } else {
+                                    console.error("Pencarian lokasi gagal:", status);
+                                }
+                            }
+                        );
+                    },
+                    error => {
+                        console.error("Geolocation gagal:", error);
+                    }
+                );
+            } else {
+                alert("Geolocation tidak didukung oleh browser Anda.");
+            }
+        }
+    </script>
+
+    <!-- Tambahkan skrip API Google Maps -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=APIKEY&libraries=places&callback=initMap" async defer></script>
+</body>
+</html>
