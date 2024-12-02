@@ -34,11 +34,12 @@
     </footer>
 
     <script>
+        // Fungsi kirim pesan
         function sendMessage() {
             const userInput = document.getElementById("user-input").value;
             if (userInput.trim() === "") return;
 
-            // Add user's message to chat box
+            // Tambah pesan pengguna ke chat box
             const chatBox = document.getElementById("chat-box");
             const userMessage = document.createElement("div");
             userMessage.classList.add("message", "user");
@@ -48,7 +49,7 @@
             `;
             chatBox.appendChild(userMessage);
 
-            // Simulate AI response
+            // Simulasikan respons AI
             const aiMessage = document.createElement("div");
             aiMessage.classList.add("message");
             aiMessage.innerHTML = `
@@ -57,17 +58,25 @@
             `;
             chatBox.appendChild(aiMessage);
 
-            // Scroll to the bottom of the chat box
+            // Scroll ke bawah
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Clear the input field
+            // Kosongkan input
             document.getElementById("user-input").value = "";
         }
 
+        // Deteksi tombol Enter pada input
+        document.getElementById("user-input").addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                sendMessage();
+                event.preventDefault();
+            }
+        });
+
+        // Fungsi kembali ke Beranda
         function backToBeranda(){
             window.location.href = 'beranda.html';
         }
-
     </script>
 
 </body>

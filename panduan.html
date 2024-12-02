@@ -25,8 +25,8 @@
         </div>
         <ul class="sidebar-menu">
             <li><button onclick="navigateToProfile()">My Profile</button></li>
-            <li><button>History</button></li>
-            <li><button>Contact Us</button></li>
+            <li><button onclick="navigateToHistory()">History</button></li>
+            <li><button onclick="navigateToContactUs()">Contact Us</button></li>
         </ul>
     </div>
 
@@ -166,5 +166,13 @@
     function navigateToProfile() {
         window.location.href = 'profile.html';
     }
+
+    function navigateToHistory() {
+        window.location.href = 'HistoriKerusakan.html';
+    }
+    function navigateToContactUs() { 
+        window.location.href = 'contactus.html';  
+    }
+
 </script>
 </html>

@@ -8,15 +8,13 @@
 </head>
 <body>
     <div class="header">
-        <h1>MyService</h1>
+        <h1 onclick="backToBeranda()">MyService</h1>
         <p>Solusi Terpercaya untuk Perbaikan Smartphone Anda</p>
     </div>
     
-    <nav class="nav">
-        <a href="beranda.html">Beranda</a>
-        <a href="layanan.html">Layanan</a>
-        <a href="panduan.html">Panduan</a>
-    </nav>
+    <header class="profile-header">
+        <h1>Profile</h1>
+    </header>    
 
     <div class="container">
         <div class="profile-section">
@@ -84,11 +82,15 @@
 </body>
 
 <script>
+    function backToBeranda() {
+    window.location.href = 'beranda.html';
+    }
+    
     function logout(){
         localStorage.setItem('user_id', '0');
         window.location.href = 'login.html';
     }
-document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
 
     // Get the user ID from localStorage or session
     const userId = localStorage.getItem('user_id'); // This should be dynamically set
@@ -118,17 +120,17 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error('Error fetching user data:', error);
         });
 
-// Function to format date to yyyy-mm-dd
-function formatDate(dateString) {
-    const date = new Date(dateString);
-    if (!date.getTime()) return '';  // Return empty string if date is invalid
+    // Function to format date to yyyy-mm-dd
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        if (!date.getTime()) return '';  // Return empty string if date is invalid
 
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // Add leading zero if needed
-    const day = String(date.getDate()).padStart(2, '0'); // Add leading zero if needed
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Add leading zero if needed
+        const day = String(date.getDate()).padStart(2, '0'); // Add leading zero if needed
 
-    return `${year}-${month}-${day}`;
-}
+        return `${year}-${month}-${day}`;
+    }
 
 
     // Handle "Edit" button clicks for updating user information

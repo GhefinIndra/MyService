@@ -3,6 +3,7 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const cors = require('cors'); // Import CORS
 
+
 const app = express();
 const PORT = 3000;
 const path = require('path');
@@ -21,7 +22,7 @@ app.use(bodyParser.json());
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '!#G43(m*Sd$x!',
+  password: '26Desember!',
   database: 'myservice', // Change this to your actual database name
 });
 
@@ -32,6 +33,8 @@ db.connect((err) => {
     console.log('Connected to the database!');
   }
 });
+
+
 
 // Handle login request (without bcrypt)
 app.post('/login', (req, res) => {
@@ -137,6 +140,41 @@ app.put('/updateUserData', (req, res) => {
           res.json({ success: true, message: 'Profile updated successfully.' });
       }
   );
+});
+
+// Menyimpan kerusakan yang baru dimasukkan
+app.post('/saveDamage', (req, res) => {
+  const { user_id, chat_name, date } = req.body;
+
+  if (!user_id || !chat_name) {
+    return res.status(400).json({ message: 'User ID dan deskripsi kerusakan diperlukan.' });
+  }
+
+  const query = 'INSERT INTO `chat` (user_id, chat_name, date) VALUES (?, ?, ?)';
+  db.query(query, [user_id, chat_name, date], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    res.json({ success: true, message: 'Kerusakan berhasil disimpan.' });
+  });
+});
+
+// Mendapatkan riwayat kerusakan berdasarkan user_id
+app.get('/getDamageHistory/:user_id', (req, res) => {
+  const userId = req.params.user_id;
+
+  const query = 'SELECT * FROM `chat` WHERE user_id = ? ORDER BY DATE DESC';
+  db.query(query, [userId], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.json({ message: 'Tidak ada riwayat kerusakan.' });
+    }
+  });
 });
 
 

@@ -1,0 +1,102 @@
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(to right, #194A69, #3291CF);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+header p {
+    margin: 0.5rem 0 0;
+    font-size: 1rem;
+}
+
+/* Form Container */
+.form-container {
+    max-width: 100%; /* Lebar penuh */
+    margin: 2rem auto;
+    text-align: center;
+    padding: 0 2rem;
+}
+
+.form-title {
+    font-size: 1.8rem;
+    color: #34495e;
+    margin-bottom: 1.5rem;
+}
+
+/* Input Area */
+.input-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    max-width: 900px; /* Lebar maksimal untuk input area */
+    margin: 0 auto;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    color: #34495e;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"]::placeholder {
+    font-style: italic;
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #3291CF;
+    box-shadow: 0 0 5px rgba(50, 145, 207, 0.5);
+}
+
+button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #2980b9;
+}
+
+/* Footer */
+footer {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+}
+
+footer p {
+    margin: 0.5rem 0;
+}

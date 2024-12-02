@@ -1,0 +1,208 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    line-height: 1.6;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+/* Header Styles */
+header.main-header {
+    background: linear-gradient(to right, #194A69, #3291CF); /* Gradient untuk header */
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+}
+
+header.main-header h1 {
+    font-size: 2.5rem; /* Ukuran font yang lebih besar untuk MyService */
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    color: #ecf0f1; /* Warna untuk judul MyService */
+}
+
+header.main-header p {
+    font-size: 1.2rem; /* Ukuran font deskripsi lebih kecil */
+    margin-bottom: 1rem;
+    color: #ecf0f1; /* Warna untuk deskripsi MyService */
+}
+
+/* Section Header */
+header {
+    background: #2C3E50; /* Warna biru terang untuk header section */
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2rem; /* Ukuran font header section */
+    color: #fff;
+    margin: 0;
+}
+
+/* Main Content Styles */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.contact-section, .contact-info {
+    background: white;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Hubungi Kami - Kecil dan Warna yang Berbeda */
+.contact-section h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #3498db; /* Biru untuk judul Hubungi Kami */
+    font-size: 1.8rem; /* Ukuran font lebih kecil */
+}
+
+.contact-section p {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+/* Form Styles */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+textarea {
+    resize: vertical;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 1rem;
+    background: #3498db; /* Warna biru untuk tombol */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+    background: #2980b9; /* Biru yang lebih gelap saat hover */
+}
+
+/* Contact Info Section */
+.contact-info ul {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.contact-info ul li {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.contact-info ul li strong {
+    color: #2980b9; /* Biru untuk elemen info kontak */
+}
+
+/* Footer Styles */
+footer {
+    background: #2c3e50; /* Warna footer gelap */
+    color: white;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 3rem;
+}
+
+footer p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+    .contact-form, .contact-info {
+        padding: 1.5rem;
+    }
+}
+/* Header Styles - MyService */
+header.main-header {
+    background: linear-gradient(to right, #194A69, #3291CF); /* Gradient untuk header */
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+}
+
+header.main-header h1 {
+    font-size: 2.5rem !important; /* Ukuran font yang lebih besar untuk MyService */
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    color: #ecf0f1; /* Warna untuk judul MyService */
+}
+
+header.main-header p {
+    font-size: 1.2rem !important; /* Ukuran font deskripsi lebih kecil */
+    margin-bottom: 1rem;
+    color: #ecf0f1; /* Warna untuk deskripsi MyService */
+}
+
+/* Section Header - Setelah MyService */
+section header {
+    background: #2C3E50; /* Warna biru terang untuk header section */
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+section header h1 {
+    font-size: 2rem !important; /* Ukuran font header section */
+    color: #fff;
+    margin: 0;
+}
+
+/* Hubungi Kami - Kecil dan Warna yang Berbeda */
+.contact-section h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #3498db; /* Biru untuk judul Hubungi Kami */
+    font-size: 1.8rem !important; /* Ukuran font lebih kecil untuk "Hubungi Kami" */
+}
+
+.contact-section p {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #555;
+}

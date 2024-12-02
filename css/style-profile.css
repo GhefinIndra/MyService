@@ -1,4 +1,4 @@
-/* Global Styles */
+/* style-profile.css */
 * {
     margin: 0;
     padding: 0;
@@ -20,7 +20,24 @@ body {
 
 .header h1 {
     margin-bottom: 10px;
+    cursor: pointer; /* Mengubah kursor menjadi pointer */
 }
+
+/* Profile Header Styles */
+.profile-header {
+    background: linear-gradient(to right, #2c3e50, #3498db); /* Disamakan dengan styles.css */
+    color: white; /* Warna teks putih */
+    text-align: center; /* Teks rata tengah */
+    padding: 2rem; /* Padding sesuai styles.css */
+}
+
+.profile-header h1 {
+    font-size: 2.5rem; /* Ukuran font sesuai dengan gaya header pada styles.css */
+    font-weight: bold; /* Font tebal */
+    margin: 0; /* Menghapus margin default */
+    line-height: 1.6; /* Line height sesuai styles.css */
+}
+
 
 /* Navigation Styles */
 .nav {
