@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '26Desember!',
+  password: '!#G43(m*Sd$x!',
   database: 'myservice', // Change this to your actual database name
 });
 
@@ -146,14 +146,16 @@ app.put('/updateUserData', (req, res) => {
 app.post('/saveDamage', (req, res) => {
   const { user_id, chat_name, date } = req.body;
 
-  if (!user_id || !chat_name) {
-    return res.status(400).json({ message: 'User ID dan deskripsi kerusakan diperlukan.' });
+  if (!user_id || !chat_name || !date) {
+    console.error('Invalid input:', req.body);
+    return res.status(400).json({ message: 'User ID, chat_name, dan date harus diisi.' });
   }
 
-  const query = 'INSERT INTO `chat` (user_id, chat_name, date) VALUES (?, ?, ?)';
+  const query = 'INSERT INTO chat (user_id, chat_name, date) VALUES (?, ?, ?)';
   db.query(query, [user_id, chat_name, date], (err, results) => {
     if (err) {
-      return res.status(500).json({ error: err.message });
+      console.error('Database error:', err.message);
+      return res.status(500).json({ message: 'Terjadi kesalahan di server.' });
     }
     res.json({ success: true, message: 'Kerusakan berhasil disimpan.' });
   });
