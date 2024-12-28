@@ -33,51 +33,7 @@
         <p>Telepon: 0812-2512-2418 | Email: ganesha.irza@gmail.com</p>
     </footer>
 
-    <script>
-        // Fungsi kirim pesan
-        function sendMessage() {
-            const userInput = document.getElementById("user-input").value;
-            if (userInput.trim() === "") return;
-
-            // Tambah pesan pengguna ke chat box
-            const chatBox = document.getElementById("chat-box");
-            const userMessage = document.createElement("div");
-            userMessage.classList.add("message", "user");
-            userMessage.innerHTML = `
-                <div class="sender">Anda:</div>
-                <div class="text">${userInput}</div>
-            `;
-            chatBox.appendChild(userMessage);
-
-            // Simulasikan respons AI
-            const aiMessage = document.createElement("div");
-            aiMessage.classList.add("message");
-            aiMessage.innerHTML = `
-                <div class="sender">ChatAI:</div>
-                <div class="text">Terima kasih sudah menghubungi kami. Apa yang bisa saya bantu?</div>
-            `;
-            chatBox.appendChild(aiMessage);
-
-            // Scroll ke bawah
-            chatBox.scrollTop = chatBox.scrollHeight;
-
-            // Kosongkan input
-            document.getElementById("user-input").value = "";
-        }
-
-        // Deteksi tombol Enter pada input
-        document.getElementById("user-input").addEventListener("keydown", function (event) {
-            if (event.key === "Enter") {
-                sendMessage();
-                event.preventDefault();
-            }
-        });
-
-        // Fungsi kembali ke Beranda
-        function backToBeranda(){
-            window.location.href = 'beranda.html';
-        }
-    </script>
+    <script src="script/AIchat.js"></script>
 
 </body>
 </html>

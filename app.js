@@ -23,7 +23,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '!#G43(m*Sd$x!',
-  database: 'myservice', // Change this to your actual database name
+  database: 'myservice', 
 });
 
 db.connect((err) => {
@@ -59,6 +59,7 @@ app.post('/login', (req, res) => {
 });
 
 // Handle signup request (no hashing)
+// Bagian ini digunakan untuk bagian signup
 app.post('/signup', (req, res) => {
   const { username, email, password } = req.body;
 
@@ -87,7 +88,8 @@ app.post('/signup', (req, res) => {
   });
 });
 
-// Retrieve user data by user_id
+// Retrieve user data by user_id, ini untuk menampilkan data pada halaman profil
+// Bagian ini digunakan pada halaman profil untuk menampilkan data yang ada di database
 app.get('/getUserData/:user_id', (req, res) => {
   const userId = req.params.user_id;
 
@@ -112,7 +114,8 @@ app.get('/getUserData/:user_id', (req, res) => {
   });
 });
 
-// Update user data
+// Update user data diperuntukkan pada saat input data baru di halaman profil
+// Bagian ini digunakan pada  halaman profil untuk edit data pengguna
 app.put('/updateUserData', (req, res) => {
   const { user_id, name, email, birthdate, phone, sex } = req.body;
 
@@ -142,7 +145,7 @@ app.put('/updateUserData', (req, res) => {
   );
 });
 
-// Menyimpan kerusakan yang baru dimasukkan
+// Menyimpan kerusakan yang akan dimasukkan ke database
 app.post('/saveDamage', (req, res) => {
   const { user_id, chat_name, date } = req.body;
 
@@ -161,7 +164,7 @@ app.post('/saveDamage', (req, res) => {
   });
 });
 
-// Mendapatkan riwayat kerusakan berdasarkan user_id
+// Mendapatkan riwayat kerusakan berdasarkan user_id (yang akan muncul di halaman HistoriKerusakan)
 app.get('/getDamageHistory/:user_id', (req, res) => {
   const userId = req.params.user_id;
 
@@ -179,8 +182,26 @@ app.get('/getDamageHistory/:user_id', (req, res) => {
   });
 });
 
+// Memasukan data input ke database
+// Bagian ini digunakan untuk upload username, email, dan pesan pada halaman contact us
+app.post('/saveMessage', (req, res) => {
+  const { user_id, name, email, message } = req.body;
 
-// Start the server
+  if (!user_id || !name || !email || !message) {
+      return res.status(400).json({ message: 'Semua kolom harus diisi.' });
+  }
+
+  const query = 'INSERT INTO contact (user_id, name, email, message) VALUES (?, ?, ?, ?)';
+  db.query(query, [user_id, name, email, message], (err, results) => {
+      if (err) {
+          return res.status(500).json({ error: err.message });
+      }
+      res.json({ success: true, message: 'Pesan berhasil disimpan.' });
+  });
+});
+
+
+// Menyalakan server
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
